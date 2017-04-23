@@ -31,6 +31,7 @@ class GroupsController < ApplicationController
  
   def create
       @group= Group.new(group_params)
+      @group.user = current_user
       if @group.save
          redirect_to groups_path
       else
@@ -43,5 +44,5 @@ class GroupsController < ApplicationController
   def group_params
       params.require(:group).permit(:title,:description)
   end
- before_action :authenticate_user! , only: [:new]
+ before_action :authenticate_user! , only: [:new, :create]
 end
